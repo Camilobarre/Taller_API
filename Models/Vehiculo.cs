@@ -5,7 +5,9 @@ using System.Linq;
 using System.Threading.Tasks;
 
 namespace Taller.Models
+
 {
+// [Table("vehiculos")]
     public class Vehiculo
     {
         public int Id { get; set; }
@@ -14,7 +16,8 @@ namespace Taller.Models
         public required int PropietarioID { get; set; }
         public required int Año { get; set; }
         public required string Color { get; set; }
-        public required string TipoVehiculo { get; set; }
+        public string? TipoVehiculo { get; set; }
+        public required string NumeroChasis { get; set; }
 
         //Enlaces foraneos
         [ForeignKey("PropietarioID")]

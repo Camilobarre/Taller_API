@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -33,5 +34,8 @@ namespace Taller.Models
         [MinLength(5, ErrorMessage = "The Email field must be more than {5} characters.")]
         [MaxLength(255, ErrorMessage = "The Email field must be less than {125} characters.")]
         public required string Correo { get; set; }
+
+        [NotMapped]
+        public required string ColorDePelo { get; set; }
     }
 }
