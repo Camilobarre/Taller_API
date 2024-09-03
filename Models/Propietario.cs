@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
 namespace Taller.Models
@@ -37,5 +38,10 @@ namespace Taller.Models
 
         [NotMapped]
         public required string ColorDePelo { get; set; }
+
+        // Enlace a la tabla vehiculo
+        // Enlaces foraneos
+        [JsonIgnore]
+        public virtual ICollection<Vehiculo>? Vehiculos { get; set;}
     }
 }

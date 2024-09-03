@@ -15,6 +15,21 @@ namespace Taller.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+
+            modelBuilder.Entity<Propietario>(propietario =>
+            {
+                propietario.ToTable("propietarios");
+                propietario.HasKey(p => p.Id);
+                propietario.Property(p => p.Id).ValueGeneratedOnAdd();
+                propietario.Property(p => p.Nombre).HasMaxLength(100).IsRequired();
+                propietario.Property(p => p.Apellido).HasMaxLength(100).IsRequired();
+                propietario.Property(p => p.FotoPerfil).HasMaxLength(100).IsRequired();
+                propietario.Property(p => p.Direccion).HasMaxLength(200).IsRequired();
+                propietario.Property(p => p.Telefono).HasMaxLength(25).IsRequired();
+                propietario.Property(p => p.Direccion).HasMaxLength(255).IsRequired();
+                propietario.Ignore(p => p.ColorDePelo);
+            });
+
             modelBuilder.Entity<Vehiculo>(vehiculo =>
             {
                 vehiculo.ToTable("vehiculos"); // Data  Annotations de [Table("vehiculos")]
@@ -27,9 +42,10 @@ namespace Taller.Data
                 vehiculo.Property(v => v.Color).HasMaxLength(50).IsRequired();
                 vehiculo.Property(v => v.TipoVehiculo).HasMaxLength(50).IsRequired(false); // False sirve para que una propiedad sea opcional
                 vehiculo.Property(v => v.NumeroChasis).HasMaxLength(25).IsRequired();
-                vehiculo.HasOne(v=>v.Propietario);
-                // .WithMany(p=>p.Vehiculos)
-                // .HasForeignKey(v=>v.PropietarioID);
+
+                vehiculo.HasOne(v => v.Propietario) // Relacion uno a muchos
+                        .WithMany(p => p.Vehiculos) // Coleccion de vehiculos en Propietario
+                        .HasForeignKey(v => v.PropietarioID); // Clave foranea en Vehiculo
             });
         }
 
