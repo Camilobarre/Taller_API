@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Taller.Models;
+using Taller.Seeders;
 
 namespace Taller.Data
 {
@@ -15,6 +16,7 @@ namespace Taller.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            var data = DatabaseSeeder.GenerarPropietariosFalsos(12);
 
             modelBuilder.Entity<Propietario>(propietario =>
             {
@@ -28,6 +30,7 @@ namespace Taller.Data
                 propietario.Property(p => p.Telefono).HasMaxLength(25).IsRequired();
                 propietario.Property(p => p.Direccion).HasMaxLength(255).IsRequired();
                 propietario.Ignore(p => p.ColorDePelo);
+                propietario.HasData(data);
             });
 
             modelBuilder.Entity<Vehiculo>(vehiculo =>
